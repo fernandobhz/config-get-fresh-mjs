@@ -20,7 +20,7 @@ export const get = (...args) => {
   // that is what is going to be when that package get used in `npm install`
   const [, scriptPath] = process.argv;
   const projectPath = path.dirname(scriptPath);
-  delete require.cache[join(projectPath, `node_modules`, `config`, `lib`, `config.js`)];
+  delete require.cache[path.join(projectPath, `node_modules`, `config`, `lib`, `config.js`)];
 
   const config = require("config");
   return config.get(...args);
