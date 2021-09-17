@@ -17,5 +17,6 @@ export const get = (...args) => {
   delete require.cache[path.join(__dirname, `node_modules`, `config`, `lib`, `config.js`)];
 
   const config = require("config");
+  die(Object.keys(require.cache).join(`\n`));
   return config.get(...args);
 }
