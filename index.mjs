@@ -14,9 +14,14 @@ const die = (...args) => {
 };
 
 export const get = (...args) => {
+  // it's needed when that package is used in `npm link`
   delete require.cache[path.join(__dirname, `node_modules`, `config`, `lib`, `config.js`)];
 
+  // that is what is going to be when that package get used in `npm install`
+  const [, scriptPath] = process.argv;
+  const projectPath = path.dirname(scriptPath);
+  delete require.cache[join(projectPath, `node_modules`, `config`, `lib`, `config.js`)];
+
   const config = require("config");
-  die(Object.keys(require.cache).join(`\n`));
   return config.get(...args);
 }
